@@ -162,7 +162,6 @@ Temporary Items
 .apdisk
 
 # Собранный проект
-/index.js
-/index.d.ts
+/build/
 
 /stuff/

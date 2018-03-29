@@ -180,7 +180,7 @@ timezone 'timezone (Z or [+-]HH:mm)'
 			hours = Number(hoursRaw),
 			minutes = Number(minutesRaw);
 
-		return (hours + minutes / 60) * (sign === '-' ? -1 : 1);
+		return (hours * 60 + minutes) * (sign === '-' ? -1 : 1);
 	})
 
 dayTime
