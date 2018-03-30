@@ -7,8 +7,8 @@ export interface DateParsed {
 export interface TimeParsed {
 	hours: number;
 	minutes: number;
-	milliseconds: number;
 	seconds: number
+	milliseconds: number;
 	timezone: null | 'Z' | number;
 }
 
@@ -20,7 +20,7 @@ export interface TypeMap {
 	datetime: DateTimeParsed;
 }
 
-export function parse(source: string): DateTimeParsed;
+export function parse(source: string, options?: undefined): DateTimeParsed;
 export function parse<T extends keyof TypeMap>(source: string, options: {
-	startRule: T
+	startRule?: T
 }): TypeMap[T];
