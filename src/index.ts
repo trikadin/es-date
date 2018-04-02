@@ -88,8 +88,6 @@ export class ESDate {
 
 	@once()
 	toTimeString(): string {
-		console.log('toTimeString');
-
 		return `${
 			padN(this.hours, Pads.hours)
 		}:${
@@ -105,7 +103,6 @@ export class ESDate {
 
 	@once()
 	toString(): string {
-		console.log('toString');
 		return `${this.toDateString()}T${this.toTimeString()}`;
 	}
 
