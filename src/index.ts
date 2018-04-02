@@ -1,4 +1,5 @@
-import { parse, TypeMap, DateTimeParsed } from './parser.pegjs';
+import { parse, TypeMap } from './parser.pegjs';
+import { once } from './decorators';
 
 const enum Pads {
 	year = 4,
@@ -57,12 +58,14 @@ export class ESDate {
 		Object.freeze(this);
 	}
 
+	@once()
 	protected get yearString(): string {
 		const extended = this.year > Consts.yearNormalMax || this.year < Consts.yearNormalMin;
 
 		return extended ? padN(this.year, Pads.yearExtended, true) : padN(this.year, Pads.year);
 	}
 
+	@once()
 	protected get timezoneString(): string {
 		const {timezone} = this;
 
@@ -78,11 +81,15 @@ export class ESDate {
 		}
 	}
 
+	@once()
 	toDateString(): string {
 		return `${this.yearString}-${padN(this.month, Pads.month)}-${padN(this.day, Pads.day)}`;
 	}
 
+	@once()
 	toTimeString(): string {
+		console.log('toTimeString');
+
 		return `${
 			padN(this.hours, Pads.hours)
 		}:${
@@ -96,7 +103,9 @@ export class ESDate {
 		}`;
 	}
 
+	@once()
 	toString(): string {
+		console.log('toString');
 		return `${this.toDateString()}T${this.toTimeString()}`;
 	}
 
@@ -104,6 +113,7 @@ export class ESDate {
 		return new Date(this.toString());
 	}
 
+	@once()
 	toUTCString(): string {
 		return this.toDate().toISOString();
 	}
