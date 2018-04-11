@@ -20,7 +20,35 @@ export interface TypeMap {
 	datetime: DateTimeParsed;
 }
 
-export function parse(source: string, options?: undefined): DateTimeParsed;
-export function parse<T extends keyof TypeMap>(source: string, options: {
-	startRule?: T
+export type TypeKey = keyof TypeMap;
+
+export function parse(source: string, options?: undefined | {}): DateTimeParsed;
+export function parse<T extends TypeKey>(source: string, options: {
+	startRule?: T;
 }): TypeMap[T];
+
+interface Location {
+	line: number;
+	column: number;
+	offset: number;
+}
+
+export interface LocationRange {
+	start: Location,
+	end: Location
+}
+
+interface ExpectedItem {
+	type: string;
+	value?: string;
+	description: string;
+}
+
+export interface PegjsError extends Error {
+	name: string;
+	message: string;
+	location: LocationRange;
+	found?: any;
+	expected?: ExpectedItem[];
+	stack?: any;
+}
